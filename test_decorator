@@ -1,0 +1,32 @@
+class Decorator(object):
+    def __init__(self):
+        pass
+    
+    def __call__(self, original_func):
+        def new_function(obj, data):
+            print 'befor fo', obj, data
+            data += '_append'
+            original_func(obj, data)
+        return new_function
+    
+  
+def mathod_dec(original_func):
+    def new_function(obj, data):
+        print 'befor fo', obj, data
+        data += '_append'
+        original_func(obj, data)
+    return new_function
+
+
+class Bar(object):
+    @mathod_dec
+    def foo(self, bar):
+        print 'in foo', bar
+        
+class BarC(object):
+    @Decorator()
+    def foo(self, bar):
+        print 'in foo', bar
+
+b = Bar()
+b.foo('asdfasdf')
